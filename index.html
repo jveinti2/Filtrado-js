@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Buscador</h1>
+    <input type="text" id="formulario">
+    <button id="search">Buscar</button>
+    <ul id="resultado">
+        <li></li>
+    </ul>
+
+
+    <script>
+        const productos = [
+            {nombre: 'Platano', precio: 500},
+            {nombre: 'Arveja', precio: 800},
+            {nombre: 'Manzana', precio: 560},
+            {nombre: 'Pera', precio: 900},
+            {nombre: 'Arracacha', precio: 884},
+        ]
+
+        const formulario = document.querySelector('#formulario')
+        const search = document.querySelector('#search')
+        const resultado = document.querySelector('#resultado')
+
+        const filtrar =()=>{
+            resultado.innerHTML = ''
+            const texto = formulario.value.toLowerCase()
+            for(let producto of productos){
+                let nombre = producto.nombre.toLocaleLowerCase()
+                if(nombre.indexOf(texto) !== -1){
+                    resultado.innerHTML += `
+                    <li>${producto.nombre} - valor: ${producto.precio}</li>
+                    `
+                }
+            }
+            if(resultado.innerHTML === ''){
+                resultado.innerHTML += `
+                    <li>Producto no encontrado</li>
+                    `
+            }
+        }
+
+        search.addEventListener('click', filtrar)
+        formulario.addEventListener('keyup', filtrar)
+
+        filtrar()
+    </script>
+</body>
+</html>
